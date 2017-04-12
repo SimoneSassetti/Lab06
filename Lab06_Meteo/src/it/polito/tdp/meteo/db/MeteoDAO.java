@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import it.polito.tdp.meteo.bean.CittaMedia;
 import it.polito.tdp.meteo.bean.Rilevamento;
 
 public class MeteoDAO {
@@ -48,5 +50,30 @@ public class MeteoDAO {
 
 		return 0.0;
 	}
+
+	public List<CittaMedia> getUmiditaMedia(int mese) {
+		
+		String sql="SELECT localita, AVG(umidita) FROM situazione WHERE MONTH(data)=? group by localita;";
+		List<CittaMedia> lista=new LinkedList<CittaMedia>();
+		
+		try {
+			Connection conn = DBConnect.getInstance().getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, mese);
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				CittaMedia c = new CittaMedia(rs.getString("localita"),mese, rs.getFloat("AVG(umidita)"));
+				lista.add(c);
+			}
+			conn.close();
+			return lista;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}	
+	}
+	
 
 }

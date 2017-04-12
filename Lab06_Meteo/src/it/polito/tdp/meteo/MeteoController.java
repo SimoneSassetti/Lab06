@@ -3,6 +3,7 @@ package it.polito.tdp.meteo;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.meteo.bean.CittaMedia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,7 +40,15 @@ public class MeteoController {
 
 	@FXML
 	void doCalcolaUmidita(ActionEvent event) {
-
+		if(boxMese.getValue()==null){
+			txtResult.appendText("Selezionare un mese.\n");
+			return;
+		}
+		int mese=boxMese.getValue();
+		
+		for(CittaMedia c:model.getUmiditaMedia(mese)){
+			txtResult.appendText(c.getNome()+" "+c.getUmiditaMedia()+"\n");
+		}
 	}
 
 	@FXML
