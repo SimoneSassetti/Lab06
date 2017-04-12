@@ -1,7 +1,7 @@
 package it.polito.tdp.meteo.bean;
 
 public class SimpleCity {
-
+	//la uso come soluzione parziale
 	private String nome;
 	private int costo;
 	
