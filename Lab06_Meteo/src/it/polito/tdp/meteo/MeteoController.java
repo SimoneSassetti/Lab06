@@ -35,7 +35,15 @@ public class MeteoController {
 
 	@FXML
 	void doCalcolaSequenza(ActionEvent event) {
-
+		if(boxMese.getValue()==null){
+			txtResult.appendText("Selezionare un mese.\n");
+			return;
+		}
+		int mese=boxMese.getValue();
+		String output=model.trovaSequenza(mese);
+		
+		txtResult.appendText(output+"\n");
+		
 	}
 
 	@FXML

@@ -74,5 +74,10 @@ public class Citta {
 	public String toString() {
 		return nome;
 	}
+
+	public void decreseCounter() {
+		this.counter--;
+		
+	}
 	
 }
